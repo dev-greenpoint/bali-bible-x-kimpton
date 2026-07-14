@@ -17,7 +17,15 @@ const TEAL = "#2BCDC4";
 
 // ─── Brand assets — swap in Kimpton logo when supplied ─────────────────────
 const BALI_BIBLE_LOGO_URL = "https://res.cloudinary.com/dfers76ex/image/upload/q_auto/f_auto/v1781745138/Bali-Bible-Logo_jzqthj.png";
-const KIMPTON_LOGO_URL = null;
+const KIMPTON_LOGO_URL = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070098/kimpton_suntaya_white_transparent_m1ko9f.png";
+
+// ─── Mockup imagery ──────────────────────────────────────────────────────────
+const MOCKUP_IG_REEL_1 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070482/ChatGPT_Image_Jul_15_2026_09_07_46_AM_q4hfjh.png";
+const MOCKUP_FACEBOOK_PROMO = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070535/ChatGPT_Image_Jul_15_2026_09_08_39_AM_jomn0l.png";
+const MOCKUP_IG_STORIES_1 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070591/ChatGPT_Image_Jul_15_2026_09_09_25_AM_rhgduh.png";
+const MOCKUP_HOMEPAGE_BANNER = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070619/ChatGPT_Image_Jul_15_2026_09_09_48_AM_yvcz4y.png";
+const MOCKUP_IG_REEL_2 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070688/ChatGPT_Image_Jul_15_2026_09_10_32_AM_hsbbjq.png";
+const MOCKUP_IG_STORIES_2 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070704/ChatGPT_Image_Jul_15_2026_09_11_25_AM_hefnro.png";
 
 // ─── Shared UI ─────────────────────────────────────────────────────────────────
 
@@ -109,18 +117,18 @@ function SubTabBar({ tabs, active, onChange }) {
   );
 }
 
-function MockupItem({ title, desc, aspectClass = "aspect-[4/5]" }) {
+function MockupItem({ title, desc, aspectClass = "aspect-[4/5]", imgSrc, imgMaxWidthClass = "max-w-[200px]" }) {
   return (
-    <div className="rounded-xl border border-[#e5e5e5] bg-white p-5">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-        <div className="flex-1">
-          <p className="mb-1 text-sm font-medium text-[#1a1a1a]">{title}</p>
-          <p className="text-sm leading-6 text-[#666]">{desc}</p>
-        </div>
-        <div className="w-full shrink-0 sm:w-36">
+    <div className="flex h-full flex-col rounded-xl border border-[#e5e5e5] bg-white p-5">
+      <p className="mb-1 text-sm font-medium text-[#1a1a1a]">{title}</p>
+      <p className="mb-4 text-sm leading-6 text-[#666]">{desc}</p>
+      {imgSrc ? (
+        <img src={imgSrc} alt={title} className={`${aspectClass} mx-auto w-full ${imgMaxWidthClass} rounded-2xl object-cover`} />
+      ) : (
+        <div className={`mx-auto w-full ${imgMaxWidthClass}`}>
           <ImgPlaceholder aspectClass={aspectClass} label="Mockup coming" />
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -267,25 +275,33 @@ function AugustRollout() {
 
       <div>
         <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#999]">Social Launch</p>
-        <div className="space-y-3">
+        <div className="grid gap-3 sm:grid-cols-3">
           <MockupItem
             title="Instagram Reel #1"
             desc="Using Kimpton supplied assets — 'Be the first to experience a new social energy in Ubud with Kimpton.'"
             aspectClass="aspect-[9/16]"
+            imgSrc={MOCKUP_IG_REEL_1}
           />
           <MockupItem
             title="Facebook Article Promotion"
             desc="Facebook post amplifying the editorial feature to drive traffic back to the article."
+            aspectClass="aspect-[4/5]"
+            imgSrc={MOCKUP_FACEBOOK_PROMO}
           />
           <MockupItem
             title="Instagram Stories"
             desc="A short story sequence introducing Kimpton Ubud."
             aspectClass="aspect-[9/16]"
+            imgSrc={MOCKUP_IG_STORIES_1}
           />
+        </div>
+        <div className="mt-3">
           <MockupItem
             title="Homepage Banner"
             desc="Homepage banner placement goes live."
             aspectClass="aspect-[16/9]"
+            imgSrc={MOCKUP_HOMEPAGE_BANNER}
+            imgMaxWidthClass="max-w-[450px]"
           />
         </div>
       </div>
@@ -324,16 +340,18 @@ function LateAugustSeptemberRollout() {
       <div>
         <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#999]">Social Content Rollout</p>
         <p className="mb-3 text-sm leading-6 text-[#666]">Using original Bali Bible content captured on-site, we'll release:</p>
-        <div className="space-y-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           <MockupItem
             title="Instagram Reel #2"
             desc="Showcasing the completed experience, filmed and edited from the on-site content shoot."
             aspectClass="aspect-[9/16]"
+            imgSrc={MOCKUP_IG_REEL_2}
           />
           <MockupItem
             title="Additional Instagram Stories"
             desc="Further story content extending reach from the on-site shoot."
             aspectClass="aspect-[9/16]"
+            imgSrc={MOCKUP_IG_STORIES_2}
           />
         </div>
         <div className="mt-3">
@@ -458,10 +476,10 @@ export default function App() {
       <section className="flex flex-col px-16 pt-10 pb-0 md:px-24">
         {/* top header row */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4 rounded-xl bg-[#1a1a1a] px-5 py-3">
+          <div className="flex items-center gap-8 rounded-xl bg-[#1a1a1a] px-12 py-1">
             <BrandLogo src={BALI_BIBLE_LOGO_URL} alt="The Bali Bible" heightClass="h-7" />
             <span className="text-sm text-[#555]">×</span>
-            <BrandLogo src={KIMPTON_LOGO_URL} alt="Kimpton" heightClass="h-5" />
+            <BrandLogo src={KIMPTON_LOGO_URL} alt="Kimpton" heightClass="h-[5.5rem]" />
           </div>
           <div className="rounded-full border border-[#e5e5e5] px-5 py-2 text-xs tracking-wider text-[#999]">
             Campaign Strategy 2026
@@ -477,7 +495,7 @@ export default function App() {
             className="text-[3.2rem] font-light leading-[1.05] text-[#1a1a1a] md:text-[5rem]"
             style={SERIF}
           >
-            The Bali Bible × Kimpton<br />Campaign Strategy.
+            The Bali Bible - Kimpton<br />Campaign Strategy.
           </h1>
           <p className="mt-10 max-w-lg text-base leading-7 text-[#666]">
             A two-month pre-opening campaign positioning Kimpton Ubud as one of
