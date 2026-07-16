@@ -20,12 +20,17 @@ const BALI_BIBLE_LOGO_URL = "https://res.cloudinary.com/dfers76ex/image/upload/q
 const KIMPTON_LOGO_URL = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070098/kimpton_suntaya_white_transparent_m1ko9f.png";
 
 // ─── Mockup imagery ──────────────────────────────────────────────────────────
-const MOCKUP_IG_REEL_1 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070482/ChatGPT_Image_Jul_15_2026_09_07_46_AM_q4hfjh.png";
-const MOCKUP_FACEBOOK_PROMO = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070535/ChatGPT_Image_Jul_15_2026_09_08_39_AM_jomn0l.png";
-const MOCKUP_IG_STORIES_1 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070591/ChatGPT_Image_Jul_15_2026_09_09_25_AM_rhgduh.png";
-const MOCKUP_HOMEPAGE_BANNER = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070619/ChatGPT_Image_Jul_15_2026_09_09_48_AM_yvcz4y.png";
-const MOCKUP_IG_REEL_2 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070688/ChatGPT_Image_Jul_15_2026_09_10_32_AM_hsbbjq.png";
-const MOCKUP_IG_STORIES_2 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784070704/ChatGPT_Image_Jul_15_2026_09_11_25_AM_hefnro.png";
+const MOCKUP_IG_REEL_1 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784155588/ChatGPT_Image_Jul_16_2026_08_46_06_AM_o3idsy.png";
+const MOCKUP_FACEBOOK_PROMO = "https://res.cloudinary.com/dfers76ex/image/upload/v1784153349/Kimpton_FB_1_rabryc.png";
+const MOCKUP_IG_STORY_1 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784153351/Kimpton_IGStory_1_ochfb5.png";
+const MOCKUP_IG_STORY_2 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784153352/Kimpton_IGStory_2_i9kvzv.png";
+const MOCKUP_IG_STORY_3 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784153354/Kimpton_IGStory_3_jkcqzz.png";
+const MOCKUP_HOMEPAGE_BANNER = "https://res.cloudinary.com/dfers76ex/image/upload/v1784153354/Kimpton_SOcial_Banner_os1ein.png";
+const MOCKUP_IG_REEL_2_FRAME_1 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784161805/ChatGPT_Image_Jul_16_2026_10_29_28_AM_1_vttlfl.png";
+const MOCKUP_IG_REEL_2_FRAME_2 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784161797/ChatGPT_Image_Jul_16_2026_10_29_28_AM_2_sts1xu.png";
+const MOCKUP_ADDITIONAL_STORY_1 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784160971/ChatGPT_Image_Jul_16_2026_10_15_16_AM_1_sd8e9q.png";
+const MOCKUP_ADDITIONAL_STORY_2 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784160966/ChatGPT_Image_Jul_16_2026_10_15_16_AM_2_acglnq.png";
+const MOCKUP_ADDITIONAL_STORY_3 = "https://res.cloudinary.com/dfers76ex/image/upload/v1784160966/ChatGPT_Image_Jul_16_2026_10_15_17_AM_3_z1u0s1.png";
 
 // ─── Shared UI ─────────────────────────────────────────────────────────────────
 
@@ -117,13 +122,36 @@ function SubTabBar({ tabs, active, onChange }) {
   );
 }
 
-function MockupItem({ title, desc, aspectClass = "aspect-[4/5]", imgSrc, imgMaxWidthClass = "max-w-[200px]" }) {
+function MockupItem({ title, desc, aspectClass = "aspect-[4/5]", imgSrc, imgMaxWidthClass = "max-w-[200px]", imgHeightClass, sideBySide = false }) {
+  if (sideBySide) {
+    return (
+      <div className="flex h-full flex-col rounded-xl border border-[#e5e5e5] bg-white p-5">
+        <div className="flex items-start gap-4">
+          <div className="flex-1">
+            <p className="mb-1 text-sm font-medium text-[#1a1a1a]">{title}</p>
+            {desc && <p className="text-sm leading-6 text-[#666]">{desc}</p>}
+          </div>
+          {imgSrc ? (
+            <img src={imgSrc} alt={title} className={`${aspectClass} shrink-0 w-full ${imgMaxWidthClass} rounded-2xl object-cover`} />
+          ) : (
+            <div className={`shrink-0 w-full ${imgMaxWidthClass}`}>
+              <ImgPlaceholder aspectClass={aspectClass} label="Mockup coming" />
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="flex h-full flex-col rounded-xl border border-[#e5e5e5] bg-white p-5">
       <p className="mb-1 text-sm font-medium text-[#1a1a1a]">{title}</p>
       <p className="mb-4 text-sm leading-6 text-[#666]">{desc}</p>
       {imgSrc ? (
-        <img src={imgSrc} alt={title} className={`${aspectClass} mx-auto w-full ${imgMaxWidthClass} rounded-2xl object-cover`} />
+        imgHeightClass ? (
+          <img src={imgSrc} alt={title} className={`${imgHeightClass} mx-auto w-auto rounded-2xl object-contain`} />
+        ) : (
+          <img src={imgSrc} alt={title} className={`${aspectClass} mx-auto w-full ${imgMaxWidthClass} rounded-2xl object-cover`} />
+        )
       ) : (
         <div className={`mx-auto w-full ${imgMaxWidthClass}`}>
           <ImgPlaceholder aspectClass={aspectClass} label="Mockup coming" />
@@ -275,33 +303,39 @@ function AugustRollout() {
 
       <div>
         <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#999]">Social Launch</p>
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           <MockupItem
             title="Instagram Reel #1"
             desc="Using Kimpton supplied assets — 'Be the first to experience a new social energy in Ubud with Kimpton.'"
             aspectClass="aspect-[9/16]"
+            imgMaxWidthClass="max-w-[414px]"
+            sideBySide
             imgSrc={MOCKUP_IG_REEL_1}
           />
           <MockupItem
             title="Facebook Article Promotion"
             desc="Facebook post amplifying the editorial feature to drive traffic back to the article."
-            aspectClass="aspect-[4/5]"
+            aspectClass="aspect-[1122/1402]"
+            imgMaxWidthClass="max-w-[414px]"
+            sideBySide
             imgSrc={MOCKUP_FACEBOOK_PROMO}
           />
-          <MockupItem
-            title="Instagram Stories"
-            desc="A short story sequence introducing Kimpton Ubud."
-            aspectClass="aspect-[9/16]"
-            imgSrc={MOCKUP_IG_STORIES_1}
-          />
+        </div>
+        <div className="mt-3 rounded-xl border border-[#e5e5e5] bg-white p-5">
+          <p className="mb-1 text-sm font-medium text-[#1a1a1a]">Instagram Stories</p>
+          <p className="mb-4 text-sm leading-6 text-[#666]">A short story sequence introducing Kimpton Ubud.</p>
+          <div className="grid grid-cols-3 gap-3">
+            <img src={MOCKUP_IG_STORY_1} alt="Instagram Story #1" className="aspect-[9/16] w-3/4 mx-auto rounded-2xl object-cover" />
+            <img src={MOCKUP_IG_STORY_2} alt="Instagram Story #2" className="aspect-[9/16] w-3/4 mx-auto rounded-2xl object-cover" />
+            <img src={MOCKUP_IG_STORY_3} alt="Instagram Story #3" className="aspect-[9/16] w-3/4 mx-auto rounded-2xl object-cover" />
+          </div>
         </div>
         <div className="mt-3">
           <MockupItem
             title="Homepage Banner"
             desc="Homepage banner placement goes live."
-            aspectClass="aspect-[16/9]"
+            imgHeightClass="h-[414px]"
             imgSrc={MOCKUP_HOMEPAGE_BANNER}
-            imgMaxWidthClass="max-w-[450px]"
           />
         </div>
       </div>
@@ -339,20 +373,22 @@ function LateAugustSeptemberRollout() {
 
       <div>
         <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#999]">Social Content Rollout</p>
-        <p className="mb-3 text-sm leading-6 text-[#666]">Using original Bali Bible content captured on-site, we'll release:</p>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <MockupItem
-            title="Instagram Reel #2"
-            desc="Showcasing the completed experience, filmed and edited from the on-site content shoot."
-            aspectClass="aspect-[9/16]"
-            imgSrc={MOCKUP_IG_REEL_2}
-          />
-          <MockupItem
-            title="Additional Instagram Stories"
-            desc="Further story content extending reach from the on-site shoot."
-            aspectClass="aspect-[9/16]"
-            imgSrc={MOCKUP_IG_STORIES_2}
-          />
+        <div className="rounded-xl border border-[#e5e5e5] bg-white p-5">
+          <p className="mb-1 text-sm font-medium text-[#1a1a1a]">Instagram Reel #2</p>
+          <p className="mb-4 text-sm leading-6 text-[#666]">Showcasing the completed experience, filmed and edited from the on-site content shoot — shown here as two frames from the same reel.</p>
+          <div className="grid grid-cols-2 gap-4 max-w-[820px] mx-auto">
+            <img src={MOCKUP_IG_REEL_2_FRAME_1} alt="Instagram Reel #2 — Frame 1" className="aspect-[9/16] w-full rounded-2xl object-cover" />
+            <img src={MOCKUP_IG_REEL_2_FRAME_2} alt="Instagram Reel #2 — Frame 2" className="aspect-[9/16] w-full rounded-2xl object-cover" />
+          </div>
+        </div>
+        <div className="mt-3 rounded-xl border border-[#e5e5e5] bg-white p-5">
+          <p className="mb-1 text-sm font-medium text-[#1a1a1a]">Additional Instagram Stories</p>
+          <p className="mb-4 text-sm leading-6 text-[#666]">Further story content extending reach from the on-site shoot.</p>
+          <div className="grid grid-cols-3 gap-3">
+            <img src={MOCKUP_ADDITIONAL_STORY_1} alt="Additional Instagram Story #1" className="aspect-[9/16] w-3/4 mx-auto rounded-2xl object-cover" />
+            <img src={MOCKUP_ADDITIONAL_STORY_2} alt="Additional Instagram Story #2" className="aspect-[9/16] w-3/4 mx-auto rounded-2xl object-cover" />
+            <img src={MOCKUP_ADDITIONAL_STORY_3} alt="Additional Instagram Story #3" className="aspect-[9/16] w-3/4 mx-auto rounded-2xl object-cover" />
+          </div>
         </div>
         <div className="mt-3">
           <Card>
